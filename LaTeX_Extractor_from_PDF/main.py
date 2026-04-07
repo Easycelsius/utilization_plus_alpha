@@ -25,7 +25,14 @@ def main():
         filename = os.path.basename(pdf_path)
         # Create a specific output folder for each file to keep results organized
         file_output_dir = os.path.join(output_base_dir, os.path.splitext(filename)[0])
-        
+        formulas_file = os.path.join(file_output_dir, "extracted_formulas.txt")
+
+        # Skip if already processed (check for specifically the final formulas file)
+        if os.path.exists(formulas_file):
+            print(f"\n--- Skipping: {filename} ---")
+            print(f"[INFO] '{formulas_file}' already exists. Use --force if we wanted to re-run (not implemented yet).")
+            continue
+
         try:
             print(f"\n--- Processing: {filename} ---")
             extract_latex_from_pdf(pdf_path, file_output_dir)
