@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Private Data
+LaTeX_Extractor_from_PDF/input_pdf/*
+LaTeX_Extractor_from_PDF/output_latex_txt/*
+
