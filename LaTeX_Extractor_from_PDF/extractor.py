@@ -17,7 +17,9 @@ def extract_formulas_from_text(content: str) -> list[dict]:
     for match in display_matches:
         stripped = match.strip()
         if stripped:
-            formulas.append({'type': 'Display', 'content': stripped})
+            # Normalize internal whitespace (replace newlines/tabs with space and collapse)
+            cleaned = " ".join(stripped.split())
+            formulas.append({'type': 'Display', 'content': cleaned})
 
     # Remove display math from content before searching for inline
     content_no_display = display_pattern.sub('', content)
@@ -28,7 +30,9 @@ def extract_formulas_from_text(content: str) -> list[dict]:
     for match in inline_matches:
         stripped = match.strip()
         if stripped:
-            formulas.append({'type': 'Inline', 'content': stripped})
+            # Normalize internal whitespace
+            cleaned = " ".join(stripped.split())
+            formulas.append({'type': 'Inline', 'content': cleaned})
 
     return formulas
 
@@ -97,18 +101,24 @@ def save_formulas_to_files(formulas: list[dict], output_dir: str):
         for item in formulas:
             f.write(f"[{item['type']}] {item['content']}\n\n")
 
-    # Version 2: Wrapped for direct LaTeX usage (preserve Inline/Display)
+    # Version 2: Wrapped for direct LaTeX usage (Original Order, Single Line)
     wrapped_path = os.path.join(output_dir, "extracted_formulas_wrapped.txt")
     with open(wrapped_path, 'w', encoding='utf-8') as f:
         for item in formulas:
-            if item['type'] == 'Display':
-                f.write(f"$$\n{item['content']}\n$$\n\n")
-            else:
-                f.write(f"${item['content']}$\n\n")
+            # Single-line format as requested: $$ content $$
+            f.write(f"$$ {item['content']} $$\n\n")
+
+    # Version 3: Wrapped for direct LaTeX usage (Sorted by Length, Longest First)
+    sorted_formulas = sorted(formulas, key=lambda x: len(x['content']), reverse=True)
+    sorted_wrapped_path = os.path.join(output_dir, "extracted_formulas_wrapped_sorted.txt")
+    with open(sorted_wrapped_path, 'w', encoding='utf-8') as f:
+        for item in sorted_formulas:
+            f.write(f"$$ {item['content']} $$\n\n")
 
     print(f"[SUCCESS] Extracted {len(formulas)} formulas.")
     print(f"[INFO] Reference: {labeled_path}")
-    print(f"[INFO] Wrapped: {wrapped_path}")
+    print(f"[INFO] Wrapped (Original Order): {wrapped_path}")
+    print(f"[INFO] Wrapped (Sorted by Length): {sorted_wrapped_path}")
 
 def extract_latex_from_pdf(pdf_path: str, output_dir: str):
     """
@@ -136,7 +146,7 @@ def extract_latex_from_pdf(pdf_path: str, output_dir: str):
     save_formulas_to_files(all_formulas, output_dir)
 
 if __name__ == "__main__":
-    output_dir = "LaTeX_Extractor_from_PDF/output_latex_txt/SQM-w2 (1)"
+    output_dir = "LaTeX_Extractor_from_PDF/output_latex_txt/2511.12062v1"
     md_files = find_md_files(output_dir)
     all_formulas = process_md_files_for_formulas(md_files)
     save_formulas_to_files(all_formulas, output_dir)
