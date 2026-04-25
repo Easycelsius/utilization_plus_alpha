@@ -19,15 +19,17 @@ A premium, stateless AI-powered platform for browser-first resume generation. Th
 
 Experience a seamless, multi-step resume tailoring process designed for maximum ATS alignment and hiring manager appeal.
 
-````carousel
-![1. Intake Phase](images/phase1.png)
-<!-- slide -->
-![2. Career History Refinement](images/phase2.png)
-<!-- slide -->
-![3. Tailoring Survey](images/phase3.png)
-<!-- slide -->
-![4. Preview & Analysis](images/phase4.png)
-````
+### 1. Intake Phase
+![Intake Phase](images/phase1.png)
+
+### 2. Career History Refinement
+![Career History Refinement](images/phase2.png)
+
+### 3. Tailoring Survey
+![Tailoring Survey](images/phase3.png)
+
+### 4. Preview & Analysis
+![Preview & Analysis](images/phase4.png)
 
 1. **Intake Phase**: Upload your target JD and multiple resume PDFs.
 2. **Career History**: Reconstruct and refine your deduplicated master career history.
