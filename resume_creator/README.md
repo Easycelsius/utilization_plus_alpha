@@ -31,10 +31,6 @@ Experience a seamless, multi-step resume tailoring process designed for maximum 
 ### 4. Preview & Analysis
 ![Preview & Analysis](images/phase4.png)
 
-1. **Intake Phase**: Upload your target JD and multiple resume PDFs.
-2. **Career History**: Reconstruct and refine your deduplicated master career history.
-3. **Tailoring Survey**: Answer AI-generated questions to bridge the gap between your history and the target role.
-4. **Preview & Analysis**: Review your tailored resume alongside real-time ATS scoring and hiring manager insights.
 
 ## Project Layout
 
